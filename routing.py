@@ -34,7 +34,6 @@ def get_routes(solution, routing, manager, locations):
 
 def print_solution(manager, routing, solution, locations):
     """Prints solution on console."""
-    print(f"Objective: {solution.ObjectiveValue()}")
     index = routing.Start(0)
     plan_output = "Route:\n"
     route_distance = 0
@@ -83,8 +82,8 @@ def tsp(locations):
 
     # Print solution on console.
     if solution:
-        global ROUTING_DISTANCE
-        ROUTING_DISTANCE = print_solution(manager, routing, solution, locations)
-        return get_routes(solution, routing, manager, locations)[0]
+        # ROUTING_DISTANCE = print_solution(manager, routing, solution, locations)
+        # return get_routes(solution, routing, manager, locations)[0]
+        return solution, routing, manager, locations
     else:
         return None

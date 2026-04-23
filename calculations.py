@@ -1,7 +1,7 @@
 import math
 import numpy as np
 import random
-from routing_variables import NUMBER_OF_POINTS_CONSTANT, ROUTING_DISTANCE
+from variables import NUMBER_OF_POINTS_CONSTANT
 
 def haversine_m(lat1, lon1, lat2, lon2):
     R = 6371.0  # km
@@ -13,20 +13,20 @@ def haversine_m(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     return int((R * c) * 1000)  # in meters
 
-def calculate_coordinates(departing_coordinates, arriving_coordinates):
+def calculate_coordinates(departing_coordinates, arriving_coordinates, routing_distance):
     # calculate gradient of the straight line between the two points
     gradient = (departing_coordinates[1] - arriving_coordinates[1]) / (
                 departing_coordinates[0] - arriving_coordinates[0])
     intersect = (departing_coordinates[1] - gradient * departing_coordinates[0])
-    number_of_points = calculate_number_of_points(departing_coordinates, arriving_coordinates)
+    number_of_points = calculate_number_of_points(departing_coordinates, arriving_coordinates, routing_distance)
     # create points (threshold) between departing and arriving coordinates that are on the straight line
     points_x = np.linspace(departing_coordinates[0], arriving_coordinates[0], number_of_points).tolist()
     points_y = list(map(lambda x: (gradient * x) + intersect, points_x))
     return list(zip(points_x, points_y))
 
-def calculate_number_of_points(departing_coordinates, arriving_coordinate):
+def calculate_number_of_points(departing_coordinates, arriving_coordinate, routing_distance):
     distance = haversine_m(departing_coordinates[0], departing_coordinates[1], arriving_coordinate[0], arriving_coordinate[1])
-    percentage = (distance / ROUTING_DISTANCE) * 100
+    percentage = (distance / routing_distance) * 100
     return int(percentage*NUMBER_OF_POINTS_CONSTANT)
 
 def reverse_harvesine(lat_deg, lon_deg, distance, bearing_deg):

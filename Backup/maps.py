@@ -36,15 +36,15 @@ def add_text_to_map(m, coordinate, color, text, file):
     m.save(file)
 
 def add_circle_to_map(m, coordinate, color, text, file):
-    # folium.CircleMarker(
-    #     location=[coordinate[0], coordinate[1]],
-    #     radius=2,  # size in pixels
-    #     color=color,  # border color
-    #     fill=True,
-    #     fill_color=color,
-    #     fill_opacity=0.8,
-    #     tooltip=text
-    # ).add_to(m)
+    folium.CircleMarker(
+        location=[coordinate[0], coordinate[1]],
+        radius=2,  # size in pixels
+        color=color,  # border color
+        fill=True,
+        fill_color=color,
+        fill_opacity=0.8,
+        tooltip=text
+    ).add_to(m)
     m.save(file)
 
 def add_arrow_to_map(m, from_coordinate, to_coordinate, color, file):
